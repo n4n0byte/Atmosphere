@@ -29,6 +29,7 @@
 
 #include "nsmitm_am_service.hpp"
 #include "nsmitm_web_service.hpp"
+#include "nsmitm_su_service.hpp"
 
 void NsMitmMain(void *arg) {
     /* Wait for initialization to occur */
@@ -44,6 +45,8 @@ void NsMitmMain(void *arg) {
 
     /* Create server manager */
     auto server_manager = new WaitableManager(1);
+
+    AddMitmServerToManager<NsSuMitmService>(server_manager, "ns:su", 1);
     
     /* Create ns mitm. */
     if (GetRuntimeFirmwareVersion() < FirmwareVersion_300) {
